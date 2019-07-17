@@ -1,7 +1,5 @@
-A library for Dart developers.
-
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+Lexicographically-sortable encoding of integer numbers based on [this paper](http://www.zanopha.com/docs/elen.pdf)
+by Peter Seymour.
 
 ## Usage
 
@@ -11,12 +9,17 @@ A simple usage example:
 import 'package:lexicographic_int/lexicographic_int.dart';
 
 main() {
-  var awesome = new Awesome();
+  String bigNumber1 = '61241643';
+  String bigNumber2 = '17568876414';
+  String encNumber1 = encode(bigNumber1);
+  String encNumber2 = encode(bigNumber2);
+  print(encNumber1); // ^^861241643
+  print(encNumber2); // ^^^21117568876414
+
+  String encNumber3 = '^^3157';
+  String encNumber4 = '--743';
+  print(decode(encNumber3)); // '157'
+  print(decode(encNumber4)); // '-67'
 }
+
 ```
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
