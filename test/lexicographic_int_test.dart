@@ -46,7 +46,7 @@ void main() {
     test('enc sortedness test', () {
       final encStrings = testStrings.map(encode).toList();
       encStrings.sort();
-      print(encStrings.join('\n'));
+      //print(encStrings.join('\n'));
       for(int i = 0; i < encStrings.length; ++i) {
         expect(decode(encStrings[i]), testStrings[i]);
       }

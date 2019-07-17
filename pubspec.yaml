@@ -1,8 +1,8 @@
 name: lexicographic_int
-description: A starting point for Dart libraries or applications.
-# version: 1.0.0
-# homepage: https://www.example.com
-# author: stlsnk <alexy.marcell@hotmail.com>
+description: Lexicographically sortable encoding of integer numbers.
+version: 1.0.0
+homepage: https://github.com/maalexy/lexicographic_int
+author: Alexy Marcell <alexy.marcell@hotmail.com>
 
 environment:
   sdk: '>=2.2.0 <3.0.0'

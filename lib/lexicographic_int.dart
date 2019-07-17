@@ -1,30 +1,29 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+/// Lexicographically sortable encoding of integer numbers.
 library lexicographic_int;
 
-import 'dart:math';
-
-const String minusCharacter = '-';
-/// ASCII code of '+' is lower than any number's ASCII code. '^' is higher.
-const String plusCharacter = '^';
+const String defaultMinusCharacter = '-';
+// ASCII code of '+' is lower than any number's ASCII code. '^' is higher.
+const String defaultPlusCharacter = '^';
 
 /// Encodes the [intString] to a lexicographically sortable string
 /// Instead of '+', the '^' character is used, because ASCII codes.
 /// [intString] should be in RegExp('[+-]?\\d+') format, ex. -15, +12, 764
-String encode(String intString, [bool borrowNegative = false]) {
+String encode(String intString,
+    {String minusCharacter = defaultMinusCharacter,
+    String plusCharacter = defaultPlusCharacter,
+    bool borrowNegative = false}) {
   if (intString == '0') return '0';
   final splitter = RegExp('([+-])?(\\d+)');
   if (!splitter.hasMatch(intString)) {
     throw FormatException(
-        '$intString should be in [sign (optional)][integer part] format.');
+        '$intString should be in [+-sign (optional)][integer part] format.');
   }
   final match = splitter.firstMatch(intString);
   final isNegative = match.group(1) == '-' || borrowNegative;
   final integerPart = match.group(2);
   var result = '';
   if (integerPart.length > 1) {
-    result = encode(integerPart.length.toString(), isNegative);
+    result = encode(integerPart.length.toString(), borrowNegative: isNegative);
   }
   if (isNegative) {
     var negated = '';
@@ -38,8 +37,12 @@ String encode(String intString, [bool borrowNegative = false]) {
   return result;
 }
 
-/// Decodes a lexicographically sortable number to an integer string;
-String decode(String encInteger) {
+/// Decodes a lexicographically sortable number to an integer string.
+String decode(
+  String encInteger, {
+  String minusCharacter = defaultMinusCharacter,
+  String plusCharacter = defaultPlusCharacter,
+}) {
   if (encInteger[0] == '0') return '0';
   String prefix;
   if (encInteger[0] == minusCharacter) {
